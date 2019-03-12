@@ -52,7 +52,21 @@ public class TokensReporter extends BasicReporter {
             try {
                 // TODO Alterar para aumentar as informações de acordo com a variável `verbosity`.
                 //      (Ver Javadoc desta função.)
-                output.write(String.format("(%s)\n", ((NewTokenMessage) message).getToken().getTokenIdentifier()));
+                output.write("Token Reconhecido\n");
+                if (verbosity == OutputVerbosity.ESSENTIAL){
+                    output.write(String.format("(%s)\n", ((NewTokenMessage) message).getToken().getTokenIdentifier()));
+                } else if(verbosity == OutputVerbosity.ADDITIONAL_INFO){
+                    output.write(String.format("(%s)\n", ((NewTokenMessage) message).getToken().getTokenIdentifier()));
+                    output.write(String.format("(%s)\n", ((NewTokenMessage) message).getToken().toString()));
+                } else if(verbosity == OutputVerbosity.EVERYTHING){
+                    output.write(String.format("(%s)\n", ((NewTokenMessage) message).getToken().getTokenIdentifier()));
+                    output.write(String.format("(%s)\n", ((NewTokenMessage) message).getToken().toString()));
+                    output.write(String.format("(%s)\n", ((NewTokenMessage) message).getToken().getLineNumber()));
+                    output.write(String.format("(%s)", ((NewTokenMessage) message).getToken().getColumnStart()));
+                    output.write("-");
+                    output.write(String.format("(%s)\n", ((NewTokenMessage) message).getToken().getColumnEnd()));
+                }
+
             } catch (IOException e) {
                 reportFailure(e);
             }
